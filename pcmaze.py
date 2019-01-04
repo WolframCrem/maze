@@ -15,20 +15,24 @@ def exit():
 
 
 def main():
-    print(find_path(entrance(), entrance()))
+    print('Found path: ' + str(find_path(entrance(), entrance())))
     return
 
 
 def find_path(pos, last):
-    if pos == exit():
-        return pos
-    for x in range(1, 17):
-        conn = connected(pos, x)
-        # Only show the path with true
-        if conn is True:
-            print(str(conn) + ' : ' + str(pos))
-        if connected(pos, x) and x != last:
-            return find_path(x, pos)
+    # check if we are at the end
+    if last == exit():
+        return True
+    # loop over entrance() and exit()
+    for i in range( entrance(), exit()+1):
+        # check if i is pos or not connected
+        if i == pos or not connected(last, i):
+            continue
+        # check if path is possible
+        if find_path(last, i):
+
+            return True
+    return False
 
 
 if __name__ == '__main__':
